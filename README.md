@@ -1,6 +1,6 @@
 # productivity_app
 
-A new Flutter project.
+A Flutter app project for my A-Level coursework
 
 ## Getting Started
 
