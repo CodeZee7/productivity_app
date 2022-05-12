@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "389710693335",
+    "project_id": "productivity-app-c3634",
+    "storage_bucket": "productivity-app-c3634.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389710693335:android:95e0301762fdc0e9fac192",
+        "android_client_info": {
+          "package_name": "com.zeeshan.productivity_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389710693335-vs32t275cpv1judvq9muavs6loc57nsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx4j5kyMs4U-SuaWVKSvpH5qj4ofQE9FE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389710693335-vs32t275cpv1judvq9muavs6loc57nsl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
