@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = FirebaseAuth.instance.currentUser;
     return WillPopScope(
       onWillPop: () async {
         SystemNavigator.pop();
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: darkBG,
               child: Wrap(
                 children: [
-                  buildHeader(context, user),
+                  buildHeader(context, user!),
                   buildMenuItems(context),
                 ],
               ),
@@ -96,11 +96,12 @@ class _HomePageState extends State<HomePage> {
                         height: 90,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        'Welcome\nZeeshan',
-                        style: TextStyle(fontSize: 24),
+                        // 'Welcome ${user.displayName}',
+                        'Welcome\n ${user.displayName}',
+                        style: const TextStyle(fontSize: 24),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -418,11 +419,11 @@ class _HomePageState extends State<HomePage> {
               height: 90,
               width: 90,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 14.0, left: 14, right: 14),
+            Padding(
+              padding: const EdgeInsets.only(top: 14.0, left: 14, right: 14),
               child: Text(
-                'Zeeshan Ibrahim',
-                style: TextStyle(
+                '${user.displayName}',
+                style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: Colors.white),
@@ -622,7 +623,9 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                FirebaseAuth.instance.signOut();
+                setState(() {
+                  FirebaseAuth.instance.signOut();
+                });
               },
             ),
           ],

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:productivity_app/colors.dart';
 import 'package:productivity_app/onboarding_screen.dart';
 import 'package:email_validator/email_validator.dart';
-
+import 'database.dart';
 import 'utils.dart';
 
 class Signup extends StatefulWidget {
@@ -19,6 +19,7 @@ class _SignupState extends State<Signup> {
   bool _isObscure = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 /*   @override
   void dispose() {
@@ -53,6 +54,12 @@ class _SignupState extends State<Signup> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 25),
                       child: TextFormField(
+                        maxLength: 15,
+                        controller: usernameController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) => value != null && value.length < 3
+                            ? 'Minimum 3 characters'
+                            : null,
                         style: const TextStyle(color: Colors.white),
                         decoration: const InputDecoration(
                             fillColor: Color.fromRGBO(53, 159, 138, 100),
@@ -61,7 +68,7 @@ class _SignupState extends State<Signup> {
                               Icons.person_outline,
                               color: Colors.white,
                             ),
-                            hintText: 'Name',
+                            hintText: 'Display Name',
                             hintStyle: TextStyle(color: Colors.white),
                             border: OutlineInputBorder()),
                       ),
@@ -177,11 +184,20 @@ class _SignupState extends State<Signup> {
 
   Future signUp() async {
     final isValid = formKey.currentState!.validate();
+    // final docUser = FirebaseFirestore.instance.collection('users').doc();
     if (!isValid) return;
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+      var user = result.user;
+      user?.updateDisplayName(usernameController.text.trim());
+
+      final json = {
+        'name': usernameController.text.trim(),
+      };
+
+      await DatabaseService(uid: user!.uid).updateUserData(json);
 
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const OnboardingScreen()));

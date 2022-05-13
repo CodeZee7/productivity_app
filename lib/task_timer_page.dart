@@ -79,11 +79,7 @@ class _TaskTimerPageState extends State<TaskTimerPage> {
                     width: 250,
                     strokeWidth: 15,
                     duration: workingTimer ? 20 : 5,
-                    onComplete: () {
-                      workingTimer = !workingTimer;
-                      print(workingTimer);
-                      timerController.start();
-                    },
+                    onComplete: () {},
                     neumorphicEffect: true,
                     backgroudColor: darkBG,
                     autoStart: false,
